@@ -1,0 +1,43 @@
+{
+    "data_params": {
+        "train_dataset_index": "/home/zhangzm/Re3900/train_list.txt",
+        "test_dataset_index": "/home/zhangzm/Re3900/test_list.txt",
+        "predict_dataset_index": "/home/zhangzm/Re3900/predict_list.txt",
+        "steady_time": 0,
+        "period_time": 2029,
+        "batch_size": 20,
+        "random_period": true,
+        "augmentation": {
+            "mode": "no",
+            "repeat_period": 3
+        }
+    },
+    "network_params": {
+        "name": "RFPMask",
+        "input_size": 363,
+        "hidden_size": [
+            512,
+            1024,
+            512
+        ],
+        "output_size": 100,
+        "seq_len": 2029,
+        "cell_type": "GRUCell",
+        "num_cells": 3,
+        "same_linear": true,
+        "mapping_net": [64, 128]
+    },
+    "log_params": {
+        "log_root": "logs"
+    },
+    "train_params": {
+        "learning_rate": 0.001,
+        "loss": "MSE",
+        "optimizer": "Adam",
+        "epoch": 250,
+        "show_steps": 2,
+        "save_mode": "min",
+        "early_stop_epoch": 10,
+        "loss_coef": 0.9
+    }
+}
