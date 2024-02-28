@@ -3,7 +3,7 @@
 
 > MSU: Mapping Network-coordinated Stacked Gated Recurrent Units for Turbulence Prediction
 
-> [Zhiming Zhang](https://scholar.google.com/citations?user=j5YBr3IAAAAJ&hl=zh-CN&oi=sra), [Shangce Gao](https://toyamaailab.github.io/), [MengChu Zhou](https://scholar.google.com/citations?user=KUkpv6oAAAAJ&hl=zh-CN), [Mengtao Yan](), [Shuyang Cao]()
+> [Zhiming Zhang](https://zhangzm0128.github.io/), [Shangce Gao](https://toyamaailab.github.io/), [MengChu Zhou](https://scholar.google.com/citations?user=KUkpv6oAAAAJ&hl=zh-CN), Mengtao Yan, Shuyang Cao
 
 Accurately predicting fluid forces acting on the surface of a structure is crucial in engineering design. The task becomes particularly challenging in turbulent flow due to the complex and irregular changes in the flow field. The Mapping Network-coordinated Stacked Gated Recurrent Units (MSU) project addresses this challenge by introducing a novel deep learning method for predicting pressure on a circular cylinder from single velocity point. Unlike other methods, MSU can use a single velocity point to predict, which is a ground-breaking study both in deep learning and physics.
 
