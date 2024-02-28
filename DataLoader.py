@@ -15,9 +15,9 @@ class DataLoader:
                 ['train', 'test'] both u_data and p_data will be loaded. When mode is 'predict', only p_data will be
                 loaded.
         Example:
-            >>> data_index_file_path = '.\\test_data\\data_index.txt'
+            >>> data_index_file_path = './test_data/data_index.txt'
             >>> config = {'dataset_index': data_index_file_path, 'steady_time': 0, 'period_time': 616, 'n_frame': 0,
-            >>>   'batch_size': 5, 'epoch': 10, 'random_period': True}
+            >>>     'batch_size': 5, 'epoch': 10, 'random_period': True}
             >>> train_loader = DataLoader(config, 'test')
             >>> while train_loader.epoch < 1:
             >>>     batch_u, batch_p = train_loader.load_data()
@@ -104,9 +104,9 @@ class DataLoader:
             return os.path.basename(self.u_data_file[self.file_pointer])
 
     def read_file_list(self):
-        '''
+        """
         According to the index file of data set, read file list
-        '''
+        """
         if self.mode in ['train', 'test']:
             self.u_data_file, self.p_data_file = [], []
             for line in open(self.dataset_index_file, 'r'):
@@ -124,14 +124,13 @@ class DataLoader:
 
 
     def read_data(self):
-        '''
+        """
         This function will read two type data into memory and their format are shown as follows:
-          u_data<np.array> structure: (file_no, np.array(time_step, u_dim)) (NOTE: time_step is determined by each file)
-
-          p_data<np.array> structure: (file_no, np.array(time_step, p_dim)) (NOTE: time_step is determined by each file)
+            u_data<np.array> structure: (file_no, np.array(time_step, u_dim)) (NOTE: time_step is determined by each file)
+            p_data<np.array> structure: (file_no, np.array(time_step, p_dim)) (NOTE: time_step is determined by each file)
         And this function will be based on self.mode to read.
         Moreover, the function will check the dimension of each data to ensure that same data has the same dimension
-        '''
+        """
         # Read data into memory
         if self.mode == 'predict':
             self.u_data = []
@@ -178,13 +177,13 @@ class DataLoader:
 
 
     def load_data_train_test(self):
-        '''
+        """
         The function load u_data and p_data as one batch. Meanwhile, if one epoch finish, the function will random the
         whole dataset.
         :return:
             batch_u<np.array> structure: (batch_size, time_step, u_dim)
             batch_p<np.array> structure: (batch_size, time_step, p_dim)
-        '''
+        """
         batch_u = np.zeros((self.batch_size * self.period_time,) + (self.u_dim,), dtype=self.u_dtype)
         batch_p = np.zeros((self.batch_size * self.period_time,) + (self.p_dim,), dtype=self.p_dtype)
         read_ = self.batch_size
@@ -239,9 +238,9 @@ class DataLoader:
         return batch_u, batch_p
 
     def load_data_predict(self):
-        '''
+        """
         This function is same as load_data_train_test()
-        '''
+        """
         batch_u = np.zeros((self.batch_size * self.period_time,) + (self.u_dim,), dtype=self.u_dtype)
         read_ = self.batch_size
         while read_ > 0:
@@ -285,9 +284,6 @@ class DataLoader:
         batch_u = batch_u.reshape((self.batch_size, self.period_time, self.u_dim))
 
         return batch_u
-
-
-
  
     def norm_data(self, data):
         return (data - np.min(data)) / (np.max(data) - np.min(data))

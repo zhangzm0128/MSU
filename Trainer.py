@@ -10,7 +10,7 @@ from utils.Utils import *
 from Loss import Loss, MaskLoss
 
 class Train:
-    '''
+    """
     The Train class sets up train process, combining DataLoader, network, loss, and other modules
     Inputs: config, logger, net, train_data_loader, val_data_loader, device
         - config: config file for init Train class
@@ -19,7 +19,7 @@ class Train:
         - train_data_loader: the class<DataLoader>, to load train data
         - val_data_loader: the class<DataLoader>, to load valid data
         - device: the device will run
-    '''
+    """
     def __init__(self, config, logger, net, train_data_loader, val_data_loader, device):
         self.net = net
         self.train_data_loader = train_data_loader
@@ -42,21 +42,20 @@ class Train:
         
         self.loss_coef_strategy = config['train_params']['loss_coef']
 
-
     def set_opt(self, **kwargs):
-        '''
+        """
         Set optimizer by kwargs. Because the params of each optimizer are quite different, therefore this function set
         optimizer by kwargs<dict>. If parameter is None, set default optimizer via self.lr.
-        '''
+        """
         if kwargs == {}:
             self.opt = eval('optim.'+self.opt)(self.net.parameters(), lr=self.lr)
         else:
             self.opt = eval('optim.'+self.opt)(self.net.parameters(), kwargs)
 
     def early_stop(self):
-        '''
+        """
         Set early stop strategy for training
-        '''
+        """
         if self.best_val_loss is None:
             self.best_val_loss = np.mean(self.val_loss_dict['pred'])
         else:
@@ -84,9 +83,9 @@ class Train:
             self.no_improve = 0
 
     def train(self):
-        '''
+        """
         Training process
-        '''
+        """
         iter = 0
         epoch_iter = 0
         epoch_current = 0
@@ -156,14 +155,11 @@ class Train:
 
                 
     def train_mask(self):
-        
         iter = 0
         epoch_iter = 0
         epoch_current = 0
         self.loss = Loss()
 
-        show_loss = []
-        train_loss = []
         step_time = time.time()
 
         # init opt
@@ -237,8 +233,6 @@ class Train:
             show_loss_dict['mask_total'].append(loss_mask.item())
             self.opt_mask.step()
 
-
-
             self.opt_pred.zero_grad()
             mask = self.net.generate_mask(u_batch)
             mask_sigmoid = F.sigmoid(mask)
@@ -298,9 +292,6 @@ class Train:
 
                 # self.update_learning_rate()
                 step_time = time.time()
-     
-    
-                
          
     def sum_mask_point(self, mask_binary):
         return torch.sum(mask_binary, dim=1)
@@ -352,9 +343,9 @@ class Train:
         return mask_return
 
     def val(self):
-        '''
+        """
         Valid process
-        '''
+        """
         self.val_data_loader.reset()
         val_loss = []
         val_iter = 0
@@ -380,9 +371,9 @@ class Train:
         return np.mean(val_loss), val_time
 
     def val_mask(self):
-        '''
+        """
         Valid process
-        '''
+        """
         self.val_data_loader.reset()
         val_loss = []
         val_loss_dict = {'mask': [], 'pred': []}
@@ -410,11 +401,12 @@ class Train:
             val_loss_dict['pred'].append(loss_pred.mean().item())
             val_iter += 1
         val_time = time.time() - step_time
-        print('Valid Epoch: {} -- LossMask: {:.4} -- ActiveMask: {:.4}-- LossPred: {:.4} -- Time: {}'.format(self.train_data_loader.epoch,
-                                                                                                             np.mean(val_loss_dict['mask']),
-                                                                                                             np.mean(activate_points),
-                                                                                                             np.mean(val_loss_dict['pred']),
-                                                                                                             format_runtime(val_time)))
+        print('Valid Epoch: {} -- LossMask: {:.4} -- ActiveMask: {:.4}-- LossPred: {:.4} -- Time: {}'.format(
+            self.train_data_loader.epoch,
+            np.mean(val_loss_dict['mask']),
+            np.mean(activate_points),
+            np.mean(val_loss_dict['pred']),
+            format_runtime(val_time)))
         # reset network as train mode
         self.net.train()
         return val_loss_dict, val_time

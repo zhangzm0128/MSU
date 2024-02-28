@@ -60,11 +60,8 @@ class Predict:
             mask_binary = binarization_mask(mask_sigmoid)
             activate_points.append(sum_mask_point(mask_binary).cpu().detach().numpy())
             output, hx = self.net.get_prediction(u_batch, mask_binary, hx)
-           
-
 
             mask_save += mask_binary.cpu().detach().numpy().tolist()
-
 
             if file_name != self.pre_data_loader.get_file_name():
                 print('Predict {} -- Time: {}'.format(file_name, format_runtime(time.time()-step_time)))

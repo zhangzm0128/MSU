@@ -13,13 +13,9 @@
         }
     },
     "network_params": {
-        "name": "RFPMask",
+        "name": "MSU",
         "input_size": 363,
-        "hidden_size": [
-            512,
-            1024,
-            512
-        ],
+        "hidden_size": [512, 1024, 512],
         "output_size": 100,
         "seq_len": 2029,
         "cell_type": "GRUCell",

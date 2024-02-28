@@ -8,12 +8,12 @@ import numpy as np
 from network import *
 
 class LoggerWriter:
-    '''
+    """
     LoggerWriter completes the functions implementation of log writing and model saving
     Inputs: config, checkpoint
         - config: the global config file for whole application
         - checkpoint: the checkpoint path to load, default is None
-    '''
+    """
     def __init__(self, config, checkpoint=None):
         self.config = config
         self.checkpoint = checkpoint
@@ -30,9 +30,9 @@ class LoggerWriter:
 
 
     def init_path(self):
-        '''
+        """
         init path based on checkpoint path, if it is None, init path based on time, network's name, loss's name, and lr
-        '''
+        """
         if self.checkpoint is None:
             log_root = self.config['log_params']['log_root']
             if not os.path.exists(log_root):
@@ -96,9 +96,9 @@ class LoggerWriter:
                 self.mask_save_path = os.path.join(self.log_dir, 'mask')
 
     def set_log_format(self, log_header=None):
-        '''
+        """
         This function sets the table header of log file, if log_header is None, set as default format
-        '''
+        """
         if log_header is None:
             self.log_header = 'Epoch,Iter,Loss-{},Time\n'.format(self.loss_name)
             self.log_format = '{},{},{},{}\n'
@@ -107,9 +107,9 @@ class LoggerWriter:
             self.log_format = ','.join(['{}']*len(self.log_header.split(',')))+'\n'
 
     def init_logs(self):
-        '''
+        """
         Create log file
-        '''
+        """
         self.train_log = os.path.join(self.loss_save_path, 'train_loss.csv')
         self.test_log = os.path.join(self.loss_save_path, 'test_loss.csv')
         if not os.path.exists(self.train_log):
@@ -131,9 +131,9 @@ class LoggerWriter:
             f.close()
 
     def load_model(self, model_name=None, device='cuda'):
-        '''
+        """
         Load saved model based on the network and weight in checkpoint path
-        '''
+        """
         net = eval(self.net_name)(self.config['network_params'], device)  # load model based on network name in config
         if 'Mask' in self.net_name:
             if model_name is not None:
@@ -164,13 +164,13 @@ class LoggerWriter:
         return net
 
     def save_model(self, net, metric, mode='min', prefix=None):
-        '''
+        """
         Save the weight of model
         Paramters:
             - net: network<torch.nn.Module>
             - metric: the evaluation metrics which the model saving is based on
             - mode: mode limited in ['min', 'max'], if mode is 'min', select the minimal metrics as best model
-        '''
+        """
         if prefix is None:
             model_name = 'model'
         else:
