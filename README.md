@@ -37,3 +37,12 @@ python main.py --config ./config.json --checkpoint None --mode train --device cu
 
 ## Citing MSU
 Zhiming Zhang, Shangce Gao, MengChu Zhou, Mengtao Yan, and Shuyang Cao, “Mapping Network-coordinated Stacked Gated Recurrent Units for Turbulence Prediction,” IEEE/CAA Journal of Automatica Sinica, 2024. DOI: 10.1109/JAS.2024.124335.
+```bib
+@article{zhang2024dendritic,
+  author={Zhiming Zhang,Zhenyu Lei,Masaaki Omura,Hideyuki Hasegawa,Shangce Gao},
+  title={Mapping Network-coordinated Stacked Gated Recurrent Units for Turbulence Prediction},
+  journal={IEEE/CAA Journal of Automatica Sinica},  
+  year={2024},
+  doi={10.1109/JAS.2024.124335}
+}
+```
