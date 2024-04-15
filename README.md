@@ -1,5 +1,5 @@
 # MSU
-### [Paper]() | [Project Page](https://github.com/zhangzm0128/MSU) 
+### [Paper](https://www.ieee-jas.net/en/article/id/41a2b1a3-7c6c-4bce-8dd3-c76813e64c69) | [Project Page](https://github.com/zhangzm0128/MSU) 
 
 > MSU: Mapping Network-coordinated Stacked Gated Recurrent Units for Turbulence Prediction
 
